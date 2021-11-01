@@ -4,10 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CometChat } from "@cometchat-pro/chat";
+import {BrowserRouter} from 'react-router-dom';
 
-
-let appID = "19551138d2d28ee0";
-let region = "US";
+let appID = process.env.REACT_APP_COMETCHAT_APP_ID;
+let region = process.env.REACT_APP_COMETCHAT_REGION;
 let appSetting = new CometChat.AppSettingsBuilder()
                     .subscribePresenceForAllUsers()
                     .setRegion(region)
@@ -17,7 +17,9 @@ CometChat.init(appID, appSetting).then(
     console.log("Initialization completed successfully");
     ReactDOM.render(
     <React.StrictMode>
+      <BrowserRouter>
       <App />
+      </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root'));
   }, error => {

@@ -1,32 +1,58 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
+import './userRegistration.scss';
+import { CometChat } from '@cometchat-pro/chat';
+import { useHistory } from 'react-router';
 
 const UserRegistration = () => {
-    const [user,setUser] = useState('');
-
+  const [uid,setUID] = useState('');
+  const [name,setName] = useState('');
+  let history = useHistory();
+  let authKey = process.env.REACT_APP_COMETCHAT_AUTH_KEY;
+  var user = new CometChat.User(uid);
+  user.setName(name);
     
-  const handlechange = (event) =>{
-    setUser(event.target.value);
-    console.log(user);
+  const handleuid = (event) =>{
+    setUID(event.target.value);
   }
 
-  const handlesubmit = () =>{
-      console.log(user);
+  const handlename = (event) =>{
+    setName(event.target.value);
   }
-    return (
-        <div>
-    <h1>CometCall</h1>
-     <input 
-     type='text'
-     value={user} 
-     onChange={handlechange}/>
-     
-     <button
-     style={{width:'100px', height:'40px'}} 
-     onClick={handlesubmit} >
-      Button
-    </button>
-        </div>
-    )
+  const handlesubmit = () =>{
+    CometChat.createUser(user, authKey).then(
+      user => {
+          console.log("user created", user);
+          history.push('/login')
+      }, error => {
+          console.log("error", error);
+      }
+  )
+  }
+ 
+  
+  return (
+    <div>
+      <h1>CometCall</h1>
+      
+      <label>Username:</label>
+      <input 
+      type='text'
+      value={uid} 
+      onChange={handleuid}
+      />
+      <label >Name:</label>
+      <input
+      type='text'
+      value={name}
+      onChange={handlename}
+      />
+      <button
+      className='button' 
+      onClick={handlesubmit} >
+        Button
+      </button>
+    </div>
+  )
 }
 
-export default UserRegistration
+export default UserRegistration;

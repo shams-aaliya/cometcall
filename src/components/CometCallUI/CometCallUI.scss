@@ -1,0 +1,32 @@
+*{
+    border:solid 1px black;
+   
+}
+.CometCall{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction: row;
+    .sidebar{
+        width:20%;
+        height: 100%;
+
+    .displayarea{
+        ul{
+            list-style: none;
+        }
+    }
+    }
+
+    .messagebox{
+        width:80%;
+        height:100%;
+
+    .messagearea{
+        height:90%;
+    }
+    .buttons{
+        height:10%;
+    }
+    }
+}

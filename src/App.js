@@ -9,6 +9,7 @@ function App() {
 
   return (
     <div>
+    <h1>Welcome to cometcall</h1>
     <Switch>
     <Route exact path='/' component={HomePage} />
     <Route exact path='/signup' component={UserRegistration} />

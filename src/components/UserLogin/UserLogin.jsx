@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 
 const UserLogin = () => {
 const [uid,setUID] = useState('');
+const [error,setError] = useState('');
 const history = useHistory();
 
 
@@ -22,7 +23,7 @@ CometChat.login(UID,authKey)
   history.push('/cometcallui');
   }
   )
-  .catch((error)=>console.log(error))
+  .catch((error)=>setError(error.message))
 }
 
 const handleclick = (e) =>{
@@ -39,6 +40,9 @@ const handleclick = (e) =>{
             onChange={handleuid}
              />
             <button onClick={handleclick}>Log In</button>
+            {
+                error ? <p>{error}</p> : null
+            }
         </div>
     )
 }

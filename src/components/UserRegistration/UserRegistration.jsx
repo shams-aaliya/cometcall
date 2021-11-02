@@ -6,6 +6,7 @@ import { useHistory } from 'react-router';
 const UserRegistration = () => {
   const [uid,setUID] = useState('');
   const [name,setName] = useState('');
+  const [error,setError] = useState('');
   let history = useHistory();
   let authKey = process.env.REACT_APP_COMETCHAT_AUTH_KEY;
   var user = new CometChat.User(uid);
@@ -24,7 +25,8 @@ const UserRegistration = () => {
           console.log("user created", user);
           history.push('/login')
       }, error => {
-          console.log("error", error);
+          setError(error.message)
+          console.log("error", error.message);
       }
   )
   }
@@ -32,7 +34,7 @@ const UserRegistration = () => {
   
   return (
     <div>
-      <h1>CometCall</h1>
+      <h1>Welcome to the registration page</h1>
       
       <label>Username:</label>
       <input 
@@ -51,6 +53,9 @@ const UserRegistration = () => {
       onClick={handlesubmit} >
         Button
       </button>
+      {
+        error ? <p>{error}</p> : null
+      }
     </div>
   )
 }

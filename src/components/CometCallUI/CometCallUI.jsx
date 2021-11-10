@@ -2,9 +2,11 @@ import React,{useState} from 'react'
 import './CometCallUI.scss'
 import {CometChat} from '@cometchat-pro/chat'
 import NewGroup from '../NewGroup/NewGroup'
+import {Link} from 'react-router-dom'
 
 const CometCallUI = () => {
     const [group,setGrouplist] = useState([]);
+    const [userList,setUserList] = useState([]);
     const [show,setShow] = useState(false);
 
     const newgroup = () =>{
@@ -27,7 +29,18 @@ const CometCallUI = () => {
         );
     }
     const userlist = () =>{
-        console.log('User list displayed');
+        let limit = 30;
+        let usersRequest = new CometChat.UsersRequestBuilder()
+                    .setLimit(limit)
+                    .build();
+
+        usersRequest.fetchNext().then(
+        userlist => {
+            setUserList(userlist);
+        }, error => {
+            console.log("Groups list fetching failed with error", error);
+        }
+        );
     }
     const startcall = () =>{
         console.log('Call Started');
@@ -44,10 +57,11 @@ const CometCallUI = () => {
             <button onClick={userlist}>User List</button>
             <div className="displayarea">
                 <ul>
-                {
-                   group.map((object,index)=>{
+                {   
+                   userList.map((object,index)=>{
                        return (
-                       <li key={index}>{object.name}</li>)
+                        
+                       <li key={index}><Link to='cometcallui/call' >{object.name}</Link></li>)
                   
                    })
                 }
@@ -55,7 +69,7 @@ const CometCallUI = () => {
             </div>
             </div>
             <div className="messagebox">
-                <div className="messagearea">
+                <div className="messagearea" id="MessageArea">
 
                 </div>
                 <div className="buttons">

@@ -10,7 +10,7 @@ const history = useHistory();
 
 const handleuid = (event) =>{
     setUID(event.target.value);
-    console.log(uid);
+    // console.log(uid);
   }
 const login = (uid) =>{
 var authKey = process.env.REACT_APP_COMETCHAT_AUTH_KEY;
